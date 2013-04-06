@@ -13,4 +13,10 @@ class apache2::install{
       notify => Service['apache2'],
       force  => true
     }
+	
+	# create an empty log file 
+  file { 
+	"/etc/apache2/ports.conf":
+	source=>"puppet:///modules/apache2/ports.conf"
+  }
   }
