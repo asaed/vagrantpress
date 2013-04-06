@@ -19,7 +19,7 @@ class wordpress::install{
   }
   
   exec{"git-35":
-    command=>"/usr/bin/git checkout 3.5",
+    command=>"/usr/bin/git checkout 3.5.1",
     cwd=>"/vagrant/WordPress",
   }
   
@@ -37,6 +37,12 @@ class wordpress::install{
   file{
     "/vagrant/WordPress/wp-config.php":
     source=>"puppet:///modules/wordpress/wp-config.php"
+  }
+  
+  # create an empty log file 
+  file { 
+	"/vagrant/logs/php-errors.log":
+	source=>"puppet:///modules/wordpress/php-errors.log"
   }
   
 }
