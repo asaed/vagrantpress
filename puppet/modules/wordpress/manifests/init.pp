@@ -15,12 +15,14 @@ class wordpress::install{
   # Get a new copy of wordpress from github
   exec{"git-wordpress": #tee hee
     command=>"/usr/bin/git clone git://github.com/WordPress/WordPress.git wordpress",
-    cwd=>"/vagrant/"
+    cwd=>"/vagrant/",
+    creates => "/vagrant/wordpress"
   }
   
   exec{"git-35":
     command=>"/usr/bin/git checkout 3.5.1",
     cwd=>"/vagrant/wordpress",
+    creates => "/vagrant/wordpress"
   }
   
   # Import a MySQL database for a basic wordpress site.
@@ -40,6 +42,10 @@ class wordpress::install{
   }
   
   # create an empty log file 
+  file { 
+    "/vagrant/logs/": 
+    ensure => directory 
+  }
   file { 
 	"/vagrant/logs/php-errors.log":
 	source=>"puppet:///modules/wordpress/php-errors.log"
